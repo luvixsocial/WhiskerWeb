@@ -1,6 +1,60 @@
-import "@/styles/globals.css";
-import type { AppProps } from "next/app";
+import '@/styles/globals.css';
+//import Footer from '@/components/Layout/Footer';
+//import Header from '@/components/Layout/Header';
+import Loading from '@/components/Layout/Loading';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import type { AppProps } from 'next/app';
+import SEO from '@/components/SEO/SEO';
+import { config } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+config.autoAddCss = false;
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
-}
+const App = ({ Component, pageProps }: AppProps) => {
+	const [isLoading, setIsLoading] = useState(true);
+	const router = useRouter();
+
+	useEffect(() => {
+		if (router.pathname !== '/') {
+			setIsLoading(false);
+			return;
+		}
+
+		const handleRouteChangeStart = () => setIsLoading(true);
+		const handleRouteChangeComplete = () => setTimeout(() => setIsLoading(false), 2000);
+
+		router.events.on('routeChangeStart', handleRouteChangeStart);
+		router.events.on('routeChangeComplete', handleRouteChangeComplete);
+		router.events.on('routeChangeError', handleRouteChangeComplete);
+
+		setTimeout(() => setIsLoading(false), 2000);
+
+		return () => {
+			router.events.off('routeChangeStart', handleRouteChangeStart);
+			router.events.off('routeChangeComplete', handleRouteChangeComplete);
+			router.events.off('routeChangeError', handleRouteChangeComplete);
+		};
+	}, [router.pathname]);
+
+	return (
+		<div className="bg-background font-monster text-foreground font-bold">
+			{isLoading ? (
+				<>
+					<SEO />
+					<Loading onClose={() => setIsLoading(false)} />
+				</>
+			) : (
+				<div className="flex min-h-screen flex-col">
+					<div className="grow">
+						{/*<Header />*/}
+						<Component {...pageProps} />
+					</div>
+
+					{/*<Footer />*/}
+				</div>
+			)}
+		</div>
+	);
+};
+
+export default App;
