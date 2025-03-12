@@ -15,24 +15,45 @@ import {
 	DropdownMenuTrigger
 } from '@/components/ShadCN/dropdown-menu';
 
-// WIP
 interface Navigation {
-	Name: string;
-	Href: string;
-	Class: string;
-	Category: string;
+	name: string;
+	href?: string | null;
+	class?: string | null;
+	onClick?: () => void;
 }
 
-const navigation: Navigation[] = [];
-const profileNavigation: Navigation[] = [];
+const navigation: Navigation[] = [
+	{
+		name: 'Explore',
+		href: '/explore'
+	},
+	{
+		name: 'Following',
+		href: '/following'
+	}
+];
+const profileNavigation: Navigation[] = [
+	{
+		name: 'Profile',
+		href: '/profile'
+	},
+	{
+		name: 'Settings',
+		href: '/settings'
+	},
+	{
+		name: 'Logout',
+		href: '/logout'
+	}
+];
 
 const Header = () => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
 		<header className="sticky top-0 z-40 w-full border-b bg-background">
-			<div className="container flex h-16 items-center justify-between">
-				<div className="flex items-center gap-2">
+			<div className="container mx-auto flex h-16 items-center justify-between px-3 md:px-0 lg:px-0">
+				<div className="flex items-center justify-center gap-2">
 					<Sheet open={isOpen} onOpenChange={setIsOpen}>
 						<SheetTrigger asChild>
 							<Button variant="ghost" size="icon" className="md:hidden">
@@ -56,37 +77,28 @@ const Header = () => {
 									/>
 									<span>Luvix Social</span>
 								</Link>
-								<Link
-									href="/"
-									className="hover:text-foreground/80"
-									onClick={() => setIsOpen(false)}
-								>
-									Home
-								</Link>
-								<Link
-									href="#features"
-									className="hover:text-foreground/80"
-									onClick={() => setIsOpen(false)}
-								>
-									Features
-								</Link>
-								<Link
-									href="#pricing"
-									className="hover:text-foreground/80"
-									onClick={() => setIsOpen(false)}
-								>
-									Pricing
-								</Link>
-								<Link
-									href="#about"
-									className="hover:text-foreground/80"
-									onClick={() => setIsOpen(false)}
-								>
-									About
-								</Link>
+
+								{navigation.map((i: Navigation) => {
+									const className = `${i.class || ''} hover:text-foreground/80`;
+									return (
+										<>
+											<Link
+												href={i.href || '#'}
+												className={className}
+												onClick={() => {
+													setIsOpen(false);
+													if (i.onClick) i.onClick();
+												}}
+											>
+												{i.name}
+											</Link>
+										</>
+									);
+								})}
 							</nav>
 						</SheetContent>
 					</Sheet>
+
 					<Link href="/" className="flex items-center gap-2">
 						<Image
 							src="/transparent.png"
@@ -98,29 +110,27 @@ const Header = () => {
 						<span className="text-xl font-bold">Luvix Social</span>
 					</Link>
 				</div>
+
 				<nav className="hidden gap-6 md:flex">
-					<Link href="/" className="text-sm font-medium transition-colors hover:text-primary">
-						Home
-					</Link>
-					<Link
-						href="#features"
-						className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-					>
-						Features
-					</Link>
-					<Link
-						href="#pricing"
-						className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-					>
-						Pricing
-					</Link>
-					<Link
-						href="#about"
-						className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-					>
-						About
-					</Link>
+					{navigation.map((i: Navigation) => {
+						const className = `${i.class || ''} text-sm font-medium transition-colors hover:text-primary`;
+						return (
+							<>
+								<Link
+									href={i.href || '#'}
+									className={className}
+									onClick={() => {
+										setIsOpen(false);
+										if (i.onClick) i.onClick();
+									}}
+								>
+									{i.name}
+								</Link>
+							</>
+						);
+					})}
 				</nav>
+
 				<div className="flex items-center gap-2">
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
@@ -129,16 +139,29 @@ const Header = () => {
 								<span className="sr-only">User menu</span>
 							</Button>
 						</DropdownMenuTrigger>
+
 						<DropdownMenuContent align="end">
 							<DropdownMenuLabel>My Account</DropdownMenuLabel>
 							<DropdownMenuSeparator />
-							<DropdownMenuItem>Profile</DropdownMenuItem>
-							<DropdownMenuItem>Settings</DropdownMenuItem>
-							<DropdownMenuItem>Billing</DropdownMenuItem>
-							<DropdownMenuSeparator />
-							<DropdownMenuItem>Logout</DropdownMenuItem>
+
+							{profileNavigation.map((o: Navigation) => {
+								return (
+									<>
+										<Link
+											href={o.href || '#'}
+											onClick={() => {
+												setIsOpen(false);
+												if (o.onClick) o.onClick();
+											}}
+										>
+											<DropdownMenuItem>{o.name}</DropdownMenuItem>
+										</Link>
+									</>
+								);
+							})}
 						</DropdownMenuContent>
 					</DropdownMenu>
+
 					<Button className="hidden md:flex">Get Started</Button>
 				</div>
 			</div>
