@@ -1,6 +1,6 @@
 import '@/styles/globals.css';
-//import Footer from '@/components/Layout/Footer';
-//import Header from '@/components/Layout/Header';
+import Footer from '@/components/Layout/Footer';
+import Header from '@/components/Layout/Header';
 import Loading from '@/components/Layout/Loading';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -37,7 +37,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 	}, [router.pathname]);
 
 	return (
-		<div className="bg-background font-monster text-foreground font-bold">
+		<div className="bg-background text-foreground">
 			{isLoading ? (
 				<>
 					<SEO />
@@ -46,11 +46,14 @@ const App = ({ Component, pageProps }: AppProps) => {
 			) : (
 				<div className="flex min-h-screen flex-col">
 					<div className="grow">
-						{/*<Header />*/}
-						<Component {...pageProps} />
+						<Header />
+
+						<main className="mt-3">
+							<Component {...pageProps} />
+						</main>
 					</div>
 
-					{/*<Footer />*/}
+					<Footer />
 				</div>
 			)}
 		</div>

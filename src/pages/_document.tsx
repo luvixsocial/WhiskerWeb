@@ -16,7 +16,7 @@ const Document = () => {
 				/>
 			</Head>
 
-			<body id="luvix" className="bg-background font-monster text-foreground font-bold">
+			<body id="luvix" className="bg-background font-monster font-bold text-foreground">
 				<Main />
 				<NextScript />
 			</body>

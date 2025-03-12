@@ -24,12 +24,12 @@ const ErrorComp: React.FC<ErrorPageProps> = ({
 		<section className="flex h-screen items-center p-16">
 			<div className="container mx-auto my-8 flex flex-col items-center justify-center px-5">
 				<div className="max-w-md text-center">
-					<h2 className="font-monster mb-8 text-9xl font-extrabold">
+					<h2 className="mb-8 font-monster text-9xl font-extrabold">
 						<span className="sr-only">Error</span>
 						{Status}
 					</h2>
 					<p className="font-monster text-2xl font-semibold md:text-3xl">{Message}</p>
-					<p className="font-cabin text-foreground/50 mt-4 mb-8">{SubText}</p>
+					<p className="mb-8 mt-4 font-cabin text-foreground/50">{SubText}</p>
 
 					{Button ? (
 						<ButtonUse onClick={Button.Function}>{Button.Name}</ButtonUse>

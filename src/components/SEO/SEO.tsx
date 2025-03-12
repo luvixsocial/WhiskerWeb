@@ -12,8 +12,8 @@ interface MetaProps {
 const Meta = ({
 	title = 'Luvix Social | Redefining Connection in a Seamless, Privacy-Focused World.',
 	description = 'Luvix Social is a next-generation platform built for authentic connections and seamless sharing. With a focus on privacy, creativity, and real-time engagement, it redefines social interaction for a connected world.',
-	logo = '/logo.png',
-	image = '/banner.png'
+	logo = '/transparent.png',
+	image = '/banner.jpg'
 }: MetaProps) => {
 	const router = useRouter();
 	const [fullUrl, setFullUrl] = useState('');
@@ -29,10 +29,10 @@ const Meta = ({
 		<Head>
 			<title>{title}</title>
 			<meta name="description" content={description} />
-            <meta 
-                name="keywords" 
-                content="Luvix Social, privacy-focused social media, secure social network, decentralized social media, ad-free social platform, encrypted messaging, private social networking, open-source social media, social media alternative, data privacy social network"
-            />
+			<meta
+				name="keywords"
+				content="Luvix Social, privacy-focused social media, secure social network, decentralized social media, ad-free social platform, encrypted messaging, private social networking, open-source social media, social media alternative, data privacy social network"
+			/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 			{/* Open Graph Meta Tags */}
@@ -58,7 +58,7 @@ const Meta = ({
 			<meta name="twitter:image:alt" content="Luvix Social" />
 
 			{/* Favicon */}
-			<link rel="icon" type="image/x-icon" href="/favicon.png" />
+			<link rel="icon" type="image/x-icon" href="/transparent.png" />
 
 			{/* Theme Colors */}
 			<meta name="theme-color" content="#710AF5" />
