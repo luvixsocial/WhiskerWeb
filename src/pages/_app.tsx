@@ -21,13 +21,13 @@ const App = ({ Component, pageProps }: AppProps) => {
 		}
 
 		const handleRouteChangeStart = () => setIsLoading(true);
-		const handleRouteChangeComplete = () => setTimeout(() => setIsLoading(false), 6000);
+		const handleRouteChangeComplete = () => setTimeout(() => setIsLoading(false), 3000);
 
 		router.events.on('routeChangeStart', handleRouteChangeStart);
 		router.events.on('routeChangeComplete', handleRouteChangeComplete);
 		router.events.on('routeChangeError', handleRouteChangeComplete);
 
-		setTimeout(() => setIsLoading(false), 6000);
+		setTimeout(() => setIsLoading(false), 3000);
 
 		return () => {
 			router.events.off('routeChangeStart', handleRouteChangeStart);
