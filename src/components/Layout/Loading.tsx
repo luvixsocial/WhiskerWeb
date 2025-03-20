@@ -7,7 +7,7 @@ interface LoadingProps {
 }
 
 const Loading: React.FC<LoadingProps> = ({ onClose }) => {
-    useEffect(() => {
+	useEffect(() => {
 		document.body.addEventListener('click', onClose);
 		return () => document.body.removeEventListener('click', onClose);
 	}, []);
